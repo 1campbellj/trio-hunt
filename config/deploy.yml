@@ -20,7 +20,7 @@ servers:
 #
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
-#  ssl: true
+  ssl: true
   host: entish.net,www.entish.net
   app_port: 3000
 
@@ -68,7 +68,7 @@ aliases:
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "trio_hunt_storage:/rails/storage"
+  - "/trio-hunt/storage:/rails/storage"
 
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
