@@ -1,18 +1,14 @@
 <div id="<%= dom_id card %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Shape:</strong>
-    <%= card.shape %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Texture:</strong>
-    <%= card.texture %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Color:</strong>
-    <%= card.color %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Number:</strong>
-    <%= card.number %>
-  </div>
+</div>
+
+<div id="<%= dom_id card %>" class="card h-15 w-15 flex <%= card.color %> <%= card.texture %>">
+  <% card.number.times do %>
+    <% if card.diamond? %>
+      <%= render "diamond" %>
+    <% elsif card.oval? %>
+      <%= render "oval" %>
+    <% elsif card.squiggle? %>
+      <%= render "squiggle" %> 
+    <% end %>
+  <% end %>
 </div>

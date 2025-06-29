@@ -1,0 +1,46 @@
+.card {
+  --red: #f50a0a;
+  --green: #00b055;
+  --purple: #6f05a1;
+
+  svg {
+    fill: none;
+    stroke-width: 2px;
+    overflow: visible;
+  }
+
+  &.red {
+    svg, line {
+      stroke: var(--red);
+    }
+
+    &.solid {
+      svg {
+        fill: var(--red);
+      }
+    }
+  }
+  &.green {
+    svg, line {
+      stroke: var(--green);
+    }
+
+    &.solid {
+      svg {
+        fill: var(--green);
+      }
+    }
+  }
+  &.purple {
+    svg, line {
+      stroke: var(--purple);
+    }
+
+    &.solid {
+      svg {
+        fill: var(--purple);
+      }
+    }
+  }
+
+}
