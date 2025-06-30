@@ -1,14 +1,11 @@
-<div id="<%= dom_id card %>" class="w-full sm:w-auto my-5 space-y-5">
-</div>
-
-<div id="<%= dom_id card %>" class="card h-15 w-15 flex <%= card.color %> <%= card.texture %>">
+<div id="<%= dom_id card %>" class="card h-15 w-22 flex <%= card.color %> <%= card.texture %> border-1 border-gray-400 rounded-md p-2 justify-center m-2">
   <% card.number.times do %>
     <% if card.diamond? %>
-      <%= render "diamond" %>
+      <%= render "cards/diamond", card: card %>
     <% elsif card.oval? %>
-      <%= render "oval" %>
+      <%= render "cards/oval", card: card %>
     <% elsif card.squiggle? %>
-      <%= render "squiggle" %> 
+      <%= render "cards/squiggle", card: card  %> 
     <% end %>
   <% end %>
 </div>

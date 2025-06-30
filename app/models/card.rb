@@ -1,4 +1,6 @@
 class Card < ApplicationRecord
+  belongs_to :game
+
   enum :shape, diamond: "diamond", oval: "oval", squiggle: "squiggle"
   enum :color, red: "red", green: "green", purple: "purple"
   enum :texture, solid: "solid", striped: "striped", open: "open"

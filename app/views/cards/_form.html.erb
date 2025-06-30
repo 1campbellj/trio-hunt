@@ -13,22 +13,22 @@
 
   <div class="my-5">
     <%= form.label :shape %>
-    <%= form.text_field :shape, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:shape].none?, "border-red-400 focus:outline-red-600": card.errors[:shape].any?}] %>
+    <%= form.select :shape, Card.shapes, {}, {class: ["bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8", {"border-gray-400 focus:outline-blue-600": card.errors[:shape].none?, "border-red-400 focus:outline-red-600": card.errors[:shape].any?}]} %>
   </div>
 
   <div class="my-5">
     <%= form.label :texture %>
-    <%= form.text_field :texture, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:texture].none?, "border-red-400 focus:outline-red-600": card.errors[:texture].any?}] %>
+    <%= form.select :texture, Card.textures, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:texture].none?, "border-red-400 focus:outline-red-600": card.errors[:texture].any?}] %>
   </div>
 
   <div class="my-5">
     <%= form.label :color %>
-    <%= form.text_field :color, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:color].none?, "border-red-400 focus:outline-red-600": card.errors[:color].any?}] %>
+    <%= form.select :color, Card.colors, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:color].none?, "border-red-400 focus:outline-red-600": card.errors[:color].any?}] %>
   </div>
 
   <div class="my-5">
     <%= form.label :number %>
-    <%= form.number_field :number, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:number].none?, "border-red-400 focus:outline-red-600": card.errors[:number].any?}] %>
+    <%= form.select :number, {"1" => 1, "2" => 2, "3" => 3}, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": card.errors[:number].none?, "border-red-400 focus:outline-red-600": card.errors[:number].any?}] %>
   </div>
 
   <div class="inline">
