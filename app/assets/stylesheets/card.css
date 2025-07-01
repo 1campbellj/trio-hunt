@@ -9,6 +9,10 @@
     overflow: visible;
   }
 
+  &.clicked {
+    outline: 2px solid red;
+  }
+
   &.red {
     svg, line {
       stroke: var(--red);
@@ -42,5 +46,4 @@
       }
     }
   }
-
 }

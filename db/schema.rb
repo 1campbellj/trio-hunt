@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_30_051358) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_30_222221) do
+  create_table "card_sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.string "card_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_sessions_on_card_id"
+    t.index ["session_id", "card_id"], name: "index_card_sessions_on_session_id_and_card_id", unique: true
+    t.index ["session_id"], name: "index_card_sessions_on_session_id"
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string "shape"
     t.string "texture"
@@ -22,6 +32,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_051358) do
     t.index ["game_id"], name: "index_cards_on_game_id"
   end
 
+  create_table "game_sessions", force: :cascade do |t|
+    t.string "game_id", null: false
+    t.string "session_id"
+    t.string "nickname"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_sessions_on_game_id"
+  end
+
   create_table "games", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -29,5 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_051358) do
     t.index ["id"], name: "index_games_on_id", unique: true
   end
 
+  add_foreign_key "card_sessions", "cards"
   add_foreign_key "cards", "games"
+  add_foreign_key "game_sessions", "games"
 end

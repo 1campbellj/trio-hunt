@@ -11,5 +11,9 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "cards#index"
+  root "games#index"
+
+  if Rails.env.development?
+    get "/cable_debug", to: "cable_debug#index"
+  end
 end

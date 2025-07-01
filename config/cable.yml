@@ -4,6 +4,8 @@
 # to make the web console appear.
 development:
   adapter: async
+  ping_interval: 5
+  timeout: 15
 
 test:
   adapter: test

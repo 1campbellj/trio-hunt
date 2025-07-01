@@ -1,4 +1,14 @@
-<div id="<%= dom_id card %>" class="card h-15 w-22 flex <%= card.color %> <%= card.texture %> border-1 border-gray-400 rounded-md p-2 justify-center m-2">
+<%= content_tag :div,
+  id: dom_id(card),
+  data: {
+    action: "click->game#clickCard",
+    card_id: card.id,
+  },
+  class: ["card h-15 w-22 flex border-1 border-gray-400 rounded-md p-2 justify-center m-2",
+          card.color,
+          card.texture,
+          {"clicked": card.card_sessions.any?}
+  ] do %>
   <% card.number.times do %>
     <% if card.diamond? %>
       <%= render "cards/diamond", card: card %>
@@ -8,4 +18,4 @@
       <%= render "cards/squiggle", card: card  %> 
     <% end %>
   <% end %>
-</div>
+<% end %>

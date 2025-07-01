@@ -1,5 +1,6 @@
 class Card < ApplicationRecord
   belongs_to :game
+  has_many :card_sessions, dependent: :destroy
 
   enum :shape, diamond: "diamond", oval: "oval", squiggle: "squiggle"
   enum :color, red: "red", green: "green", purple: "purple"

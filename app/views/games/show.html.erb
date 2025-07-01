@@ -1,15 +1,13 @@
-<% content_for :title, "Showing game" %>
+<% content_for :title, "Game" %>
 
-<div class="md:w-2/3 w-full">
+<div class="md:w-2/3 w-full" data-controller="game" data-game-game-id-value="<%= @game.id %>">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Showing game</h1>
+  <h1 class="font-bold text-4xl">Showing game: <%= @game.name %></h1>
 
-  <%= render @game %>
-
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap mt-2">
     <% @game.cards.each do |card| %>
       <%= render card %>
     <% end %>

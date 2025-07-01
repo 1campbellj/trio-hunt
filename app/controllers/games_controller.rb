@@ -6,6 +6,7 @@ class GamesController < ApplicationController
   end
 
   def show
+    @game = Game.includes(cards: :card_sessions).find(params[:id])
   end
 
   def new
@@ -27,7 +28,6 @@ class GamesController < ApplicationController
         end
       end
     end
-
 
     if @game.save
       redirect_to @game, notice: "Game was successfully created."
