@@ -31,6 +31,11 @@ export default class extends Controller {
   }
 
   clickCard(event) {
+    const activeCount = this.element.querySelectorAll('.clicked').length
+    if (activeCount >= 3 && !event.currentTarget.classList.contains('clicked')) {
+      console.log("You can only select two cards at a time.")
+      return
+    }
     const cardId = event.currentTarget.dataset.cardId
     this.subscription.perform('card_clicked', { card_id: cardId, player_id: this.playerIdValue })
   }
