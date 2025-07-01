@@ -6,8 +6,9 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.includes(cards: :card_sessions).find(params[:id])
+    @game = Game.find(params[:id])
     @game_session = @game.game_sessions.find_by(session_id: session.id.to_s)
+    @cards = @game.cards.active.includes(:card_sessions)
     @session_player_map = @game.game_sessions.map do |session|
       {
         session_id: session.id,
@@ -36,8 +37,10 @@ class GamesController < ApplicationController
       end
     end
 
+    @game.cards.sample(12).each { |card| card.status = :active }
+
     if @game.save
-      redirect_to @game, notice: "Game was successfully created."
+      redirect_to games_path, notice: "Game was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

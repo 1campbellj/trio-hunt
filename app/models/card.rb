@@ -6,6 +6,11 @@ class Card < ApplicationRecord
   enum :shape, diamond: "diamond", oval: "oval", squiggle: "squiggle"
   enum :color, red: "red", green: "green", purple: "purple"
   enum :texture, solid: "solid", striped: "striped", open: "open"
+  enum :status, {
+    active: "active",
+    inactive: "inactive",
+    discarded: "discarded"
+  }, default: :inactive
 
   validates :number,
     presence: true,

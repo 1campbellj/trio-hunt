@@ -31,6 +31,7 @@ export default class extends Controller {
   }
 
   clickCard(event) {
+    console.log("Card clicked", event)
     const activeCount = this.element.querySelectorAll('.clicked').length
     if (activeCount >= 3 && !event.currentTarget.classList.contains('clicked')) {
       console.log("You can only select two cards at a time.")
@@ -41,6 +42,7 @@ export default class extends Controller {
   }
 
   handleCardClick(data) {
+    console.log("Received data:", data);
     if (data.action === 'card_clicked') {
       console.log(data);
       console.log(this.playerIdValue);
