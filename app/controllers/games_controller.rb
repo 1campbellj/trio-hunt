@@ -7,6 +7,13 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.includes(cards: :card_sessions).find(params[:id])
+    @game_session = @game.game_sessions.find_by(session_id: session.id.to_s)
+    @session_player_map = @game.game_sessions.map do |session|
+      {
+        session_id: session.id,
+        player_id: session.player_id
+      }
+    end
   end
 
   def new

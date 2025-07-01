@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { createConsumer } from "@rails/actioncable"
 
 export default class extends Controller {
-  static values = { gameId: String }
+  static values = { gameId: String, playerId: Number }
   connect() {
     let consumer = createConsumer();
     this.subscription = consumer.subscriptions.create(
@@ -32,20 +32,31 @@ export default class extends Controller {
 
   clickCard(event) {
     const cardId = event.currentTarget.dataset.cardId
-    this.subscription.perform('card_clicked', { card_id: cardId })
+    this.subscription.perform('card_clicked', { card_id: cardId, player_id: this.playerIdValue })
   }
 
   handleCardClick(data) {
     if (data.action === 'card_clicked') {
-      this.highlightCard(data.card_id)
-      console.log("Card clicked:", data.card)
+      console.log(data);
+      console.log(this.playerIdValue);
+      if ( data.player_id === this.playerIdValue) {
+        this.highlightCard(data.card_id);
+      } else {
+        this.highlightPlayerIcon(data.card_id, data.player_id);
+      }
     }
+  }
+
+  highlightPlayerIcon(cardId, playerId) {
+    const icon_selector = `[data-card-id="${cardId}"] [data-player-id="${playerId}"]`
+    const icon = this.element.querySelector(icon_selector)
+    icon.classList.toggle('invisible')
   }
 
   highlightCard(cardId) {
     const card = this.element.querySelector(`[data-card-id="${cardId}"]`)
     if (card) {
-      card.classList.add('clicked')
+      card.classList.toggle('clicked')
     }
   }
 }

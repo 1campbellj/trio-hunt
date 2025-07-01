@@ -11,6 +11,7 @@
 
   &.clicked {
     outline: 2px solid red;
+    border: 1px solid red;
   }
 
   &.red {

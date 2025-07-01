@@ -4,18 +4,84 @@
     action: "click->game#clickCard",
     card_id: card.id,
   },
-  class: ["card h-15 w-22 flex border-1 border-gray-400 rounded-md p-2 justify-center m-2",
+  class: ["card h-22 w-33 flex flex-col border-1 border-gray-400 rounded-md m-2",
           card.color,
           card.texture,
-          {"clicked": card.card_sessions.any?}
+          {"clicked": card.card_sessions.filter{|cs| cs.session_id == session.id.to_s  }.present?}
   ] do %>
-  <% card.number.times do %>
-    <% if card.diamond? %>
-      <%= render "cards/diamond", card: card %>
-    <% elsif card.oval? %>
-      <%= render "cards/oval", card: card %>
-    <% elsif card.squiggle? %>
-      <%= render "cards/squiggle", card: card  %> 
+  <div class="flex space-between w-full justify-between p-1">
+    <%= content_tag :div, nil,
+      data: { player_id: 1 },
+      class: ["w-2 h-2 rounded-full bg-blue-500",
+              {"invisible": !card.player_active?(1) || @game_session.player_id == 1}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 2 },
+      class: ["w-2 h-2 rounded-full bg-emerald-500",
+              {"invisible": !card.player_active?(2) || @game_session.player_id == 2}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 3 },
+      class: ["w-2 h-2 rounded-full bg-orange-500",
+              {"invisible": !card.player_active?(3) || @game_session.player_id == 3}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 4 },
+      class: ["w-2 h-2 rounded-full bg-purple-500",
+              {"invisible": !card.player_active?(4) || @game_session.player_id == 4}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 5 },
+      class: ["w-2 h-2 rounded-full bg-rose-500",
+              {"invisible": !card.player_active?(5) || @game_session.player_id == 5}
+      ]
+    %>
+  </div>
+  <div class="flex flex-row justify-center h-2/3">
+    <% card.number.times do %>
+      <% if card.diamond? %>
+        <%= render "cards/diamond", card: card %>
+      <% elsif card.oval? %>
+        <%= render "cards/oval", card: card %>
+      <% elsif card.squiggle? %>
+        <%= render "cards/squiggle", card: card  %> 
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+  <div class="flex space-between w-full justify-between p-1">
+    <%= content_tag :div, nil,
+      data: { player_id: 6 },
+      class: ["w-2 h-2 rounded-full bg-teal-500",
+              {"invisible": !card.player_active?(6) || @game_session.player_id == 6}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 7 },
+      class: ["w-2 h-2 rounded-full bg-amber-500",
+              {"invisible": !card.player_active?(7) || @game_session.player_id == 7}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 8 },
+      class: ["w-2 h-2 rounded-full bg-indigo-500",
+              {"invisible": !card.player_active?(8) || @game_session.player_id == 8}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 9 },
+      class: ["w-2 h-2 rounded-full bg-lime-500",
+              {"invisible": !card.player_active?(9) || @game_session.player_id == 9}
+      ]
+    %>
+    <%= content_tag :div, nil,
+      data: { player_id: 10 },
+      class: ["w-2 h-2 rounded-full bg-pink-500",
+              {"invisible": !card.player_active?(10) || @game_session.player_id == 10}
+      ]
+    %>
+  </div>
 <% end %>
