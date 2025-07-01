@@ -26,4 +26,16 @@ class Card < ApplicationRecord
   def player_ids
     @player_ids ||= game_sessions.map(&:player_id).to_set
   end
+
+  def self.set?(a, b, c)
+    shapes = [ a.shape, b.shape, c.shape ]
+    colors = [ a.color, b.color, c.color ]
+    textures = [ a.texture, b.texture, c.texture ]
+    numbers = [ a.number, b.number, c.number ]
+
+    (shapes.uniq.size == 1 || shapes.uniq.size == 3) &&
+      (colors.uniq.size == 1 || colors.uniq.size == 3) &&
+      (textures.uniq.size == 1 || textures.uniq.size == 3) &&
+      (numbers.uniq.size == 1 || numbers.uniq.size == 3)
+  end
 end
