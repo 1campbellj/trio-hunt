@@ -18,7 +18,8 @@ export default class extends Controller {
         },
 
         received: (data) => {
-          this.handleCardClick(data)
+          console.log("Received data:", data)
+          this.handleMessage(data)
         }
       }
     )
@@ -33,23 +34,40 @@ export default class extends Controller {
   clickCard(event) {
     console.log("Card clicked", event)
     const activeCount = this.element.querySelectorAll('.clicked').length
+
     if (activeCount >= 3 && !event.currentTarget.classList.contains('clicked')) {
       console.log("You can only select two cards at a time.")
       return
     }
+
+    const clicked = event.currentTarget.classList.contains('clicked')
     const cardId = event.currentTarget.dataset.cardId
-    this.subscription.perform('card_clicked', { card_id: cardId, player_id: this.playerIdValue })
+
+    if (clicked){
+      // unselecting card
+      this.unhighlightCard(cardId)
+      this.subscription.perform('card_unselected', { card_id: cardId, player_id: this.playerIdValue })
+    } else {
+      this.highlightCard(cardId)
+      this.subscription.perform('card_selected', { card_id: cardId, player_id: this.playerIdValue })
+    }
+
   }
 
-  handleCardClick(data) {
-    console.log("Received data:", data);
-    if (data.action === 'card_clicked') {
-      console.log(data);
-      console.log(this.playerIdValue);
-      if ( data.player_id === this.playerIdValue) {
-        this.highlightCard(data.card_id);
-      } else {
-        this.highlightPlayerIcon(data.card_id, data.player_id);
+  handleMessage(data) {
+    if (data.player_id === this.playerIdValue) {
+      // current player, so use highlightCard functions
+      if (data.action === 'card_selected') {
+        this.highlightCard(data.card_id)
+      } else if (data.action === 'card_unselected') {
+        this.unhighlightCard(data.card_id)
+      }
+    } else {
+      // other palyer, so use highlightPlayerIcon functions
+      if (data.action === 'card_selected') {
+        this.highlightPlayerIcon(data.card_id, data.player_id)
+      } else if (data.action === 'card_unselected') {
+        this.unhighlightPlayerIcon(data.card_id, data.player_id)
       }
     }
   }
@@ -57,13 +75,26 @@ export default class extends Controller {
   highlightPlayerIcon(cardId, playerId) {
     const icon_selector = `[data-card-id="${cardId}"] [data-player-id="${playerId}"]`
     const icon = this.element.querySelector(icon_selector)
-    icon.classList.toggle('invisible')
+    icon.classList.remove('invisible')
+  }
+
+  unhighlightPlayerIcon(cardId, playerId) {
+    const icon_selector = `[data-card-id="${cardId}"] [data-player-id="${playerId}"]`
+    const icon = this.element.querySelector(icon_selector)
+    icon.classList.add('invisible')
   }
 
   highlightCard(cardId) {
     const card = this.element.querySelector(`[data-card-id="${cardId}"]`)
     if (card) {
-      card.classList.toggle('clicked')
+      card.classList.add('clicked')
+    }
+  }
+
+  unhighlightCard(cardId) {
+    const card = this.element.querySelector(`[data-card-id="${cardId}"]`)
+    if (card) {
+      card.classList.remove('clicked')
     }
   }
 }
